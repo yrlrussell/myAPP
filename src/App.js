@@ -1,47 +1,81 @@
 import './App.css';
 
-function MyButton({ button }) {
-  const handleClick = () => {
-    alert(`You pressed: ${button}`);
-  };
-
+function MyButton({label, onClick}) {
   return (
-    <button className="CalcButton" onClick={handleClick}>
-      {button}
+    <button className="CalcButton" onClick ={onClick}>
+      {label}
     </button>
   );
 }
 
-function Display({ display }) {
+function Display({display}) {
   return (
     <div className="CalcDisplay">
       {display}
-    </div>
+    </div>    
   );
 }
 
 export default function App() {
+
+  const numberClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    console.log(value);
+    alert(value);
+
+  }
+
+  const operatorClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    console.log(value);
+    alert(value);
+
+  }
+
+  const equalClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    console.log(value);
+    alert(value);
+
+  }
+
+  const clearClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    console.log(value);
+    alert(value);
+
+  }
+
+
   return (
     <div className="App">
       <h1>Welcome to my app</h1>
       <Display display={0} />
       <div className="ButtonContainer">
-        <MyButton button={7}/>
-        <MyButton button={8}/>
-        <MyButton button={9}/>
-        <MyButton button={"+"}/>
-        <MyButton button={4}/>
-        <MyButton button={5}/>
-        <MyButton button={6}/>
-        <MyButton button={"-"}/>
-        <MyButton button={1}/>
-        <MyButton button={2}/>
-        <MyButton button={3}/>
-        <MyButton button={"*"}/>
-        <MyButton button={"C"}/>
-        <MyButton button={0}/>
-        <MyButton button={"="} />
-        <MyButton button={"÷"} />
+        <MyButton label={7} onClick={numberClickHandler}/>
+        <MyButton label={8} onClick={numberClickHandler}/>
+        <MyButton label={9} onClick={numberClickHandler}/>
+        <MyButton label={"+"} onClick={operatorClickHandler}/>
+        <MyButton label={4} onClick={numberClickHandler}/>
+        <MyButton label={5} onClick={numberClickHandler}/>
+        <MyButton label={6} onClick={numberClickHandler}/>
+        <MyButton label={"-"} onClick={operatorClickHandler}/>
+        <MyButton label={1} onClick={numberClickHandler}/>
+        <MyButton label={2} onClick={numberClickHandler}/>
+        <MyButton label={3} onClick={numberClickHandler}/>
+        <MyButton label={"*"} onClick={operatorClickHandler}/>
+        <MyButton label={"C"} onClick={clearClickHandler}/>
+        <MyButton label={0} onClick={numberClickHandler}/>
+        <MyButton label={"="} onClick={equalClickHandler}/>
+        <MyButton label={"÷"} onClick={operatorClickHandler}/>
       </div>
     </div>
   );
