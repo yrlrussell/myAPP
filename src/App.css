@@ -28,7 +28,7 @@
 
 }
 .CalcDisplay {
-  border: 1px solid black;
+  border: 2px solid black;
   height: 40px;
   font-size: 2em;
   text-align: right;
