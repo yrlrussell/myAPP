@@ -1,81 +1,110 @@
+import React, { useState } from 'react';
 import './App.css';
 
-function MyButton({label, onClick}) {
+function MyButton({ label, onClick }) {
   return (
-    <button className="CalcButton" onClick ={onClick}>
+    <button className="CalcButton" onClick={onClick}>
       {label}
     </button>
   );
 }
 
-function Display({display}) {
+function Display({ display }) {
   return (
     <div className="CalcDisplay">
       {display}
-    </div>    
+    </div>
   );
 }
 
 export default function App() {
+  const [display, setDisplay] = useState('0');
+  const [num1, setNum1] = useState('');
+  const [operator, setOperator] = useState('');
+  const [num2, setNum2] = useState('');
 
-  const numberClickHandler = (e) => {
-    e.preventDefault();
-    const value = e.target.innerHTML;
+  const numberClickHandler = (value) => {
+    if (operator === '') {
+      setNum1(num1 + value);
+      setDisplay(num1 + value);
+    } else {
+      setNum2(num2 + value);
+      setDisplay(num2 + value);
+    }
+  };
 
-    console.log(value);
-    alert(value);
+  const operatorClickHandler = (value) => {
+    if (num1 !== '') {
+      setOperator(value);
+      setDisplay(value);
+    }
+  };
 
-  }
+  const clearClickHandler = () => {
+    setDisplay('0');
+    setNum1('');
+    setOperator('');
+    setNum2('');
+  };
 
-  const operatorClickHandler = (e) => {
-    e.preventDefault();
-    const value = e.target.innerHTML;
+  const calculateResult = () => {
+    const number1 = parseFloat(num1);
+    const number2 = parseFloat(num2);
+    let result = 0;
 
-    console.log(value);
-    alert(value);
+    switch (operator) {
+      case '+':
+        result = number1 + number2;
+        break;
+      case '-':
+        result = number1 - number2;
+        break;
+      case '*':
+        result = number1 * number2;
+        break;
+      case '÷':
+        if (number2 !== 0) {
+          result = number1 / number2;
+        } else {
+          result = 'Error';
+        }
+        break;
+      default:
+        break;
+    }
 
-  }
-
-  const equalClickHandler = (e) => {
-    e.preventDefault();
-    const value = e.target.innerHTML;
-
-    console.log(value);
-    alert(value);
-
-  }
-
-  const clearClickHandler = (e) => {
-    e.preventDefault();
-    const value = e.target.innerHTML;
-
-    console.log(value);
-    alert(value);
-
-  }
-
-
+    setDisplay(result);
+    setNum1(result.toString());
+    setOperator('');
+    setNum2('');
+  };
+  const nameClickHandler = () => {
+    setDisplay('YRL RUSSELL ANICETA');
+  };
   return (
     <div className="App">
-      <h1>Welcome to my app</h1>
-      <Display display={0} />
+      <h1>Calculator of Yrl Russell Aniceta - BSCPE3A</h1>
+      <Display display={display} />
       <div className="ButtonContainer">
-        <MyButton label={7} onClick={numberClickHandler}/>
-        <MyButton label={8} onClick={numberClickHandler}/>
-        <MyButton label={9} onClick={numberClickHandler}/>
-        <MyButton label={"+"} onClick={operatorClickHandler}/>
-        <MyButton label={4} onClick={numberClickHandler}/>
-        <MyButton label={5} onClick={numberClickHandler}/>
-        <MyButton label={6} onClick={numberClickHandler}/>
-        <MyButton label={"-"} onClick={operatorClickHandler}/>
-        <MyButton label={1} onClick={numberClickHandler}/>
-        <MyButton label={2} onClick={numberClickHandler}/>
-        <MyButton label={3} onClick={numberClickHandler}/>
-        <MyButton label={"*"} onClick={operatorClickHandler}/>
-        <MyButton label={"C"} onClick={clearClickHandler}/>
-        <MyButton label={0} onClick={numberClickHandler}/>
-        <MyButton label={"="} onClick={equalClickHandler}/>
-        <MyButton label={"÷"} onClick={operatorClickHandler}/>
+        <MyButton label={7} onClick={() => numberClickHandler('7')} />
+        <MyButton label={8} onClick={() => numberClickHandler('8')} />
+        <MyButton label={9} onClick={() => numberClickHandler('9')} />
+        <MyButton label="+" onClick={() => operatorClickHandler('+')} />
+        <MyButton label={4} onClick={() => numberClickHandler('4')} />
+        <MyButton label={5} onClick={() => numberClickHandler('5')} />
+        <MyButton label={6} onClick={() => numberClickHandler('6')} />
+        <MyButton label="-" onClick={() => operatorClickHandler('-')} />
+        <MyButton label={1} onClick={() => numberClickHandler('1')} />
+        <MyButton label={2} onClick={() => numberClickHandler('2')} />
+        <MyButton label={3} onClick={() => numberClickHandler('3')} />
+        <MyButton label="*" onClick={() => operatorClickHandler('*')} />
+        <MyButton label="C" onClick={clearClickHandler} />
+        <MyButton label={0} onClick={() => numberClickHandler('0')} />
+        <MyButton label="=" onClick={calculateResult} />
+        <MyButton label="÷" onClick={() => operatorClickHandler('÷')} />
+      </div>
+      <div className="SurnameButton">
+        <MyButton label="ANICETA" onClick={nameClickHandler} />
       </div>
     </div>
   );
