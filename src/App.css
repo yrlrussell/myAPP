@@ -24,14 +24,14 @@ body {
 }
 
 .CalcDisplay {
-  border: 2px solid #000;
+  border: 2px solid black;
   height: 60px;
   font-size: 2em;
   text-align: right;
   padding: 0 20px;
   margin-bottom: 20px;
-  background: #eb8a8a;
-  color: #000000;
+  background: #f1a1a1;
+  color: whitesmoke;
   border-radius: 2.5px;
   width: 90%;
   display: flex;
