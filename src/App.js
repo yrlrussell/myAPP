@@ -18,7 +18,7 @@ function Display({ display }) {
 }
 
 export default function App() {
-  const [display, setDisplay] = useState('0');
+  const [display, setDisplay] = useState(0);
   const [num1, setNum1] = useState('');
   const [operator, setOperator] = useState('');
   const [num2, setNum2] = useState('');
@@ -34,12 +34,20 @@ export default function App() {
   };
 
   const operatorClickHandler = (value) => {
-    if (num1 !== '') {
+    if (value === '±') {
+      if (operator === '') {
+        setNum1((prevNum) => (-parseFloat(prevNum)).toString());
+        setDisplay((prevDisplay) => (-parseFloat(prevDisplay)).toString());
+      } else {
+        setNum2((prevNum) => (-parseFloat(prevNum)).toString());
+        setDisplay((prevDisplay) => (-parseFloat(prevDisplay)).toString());
+      }
+    } else if (num1 !== '') {
       setOperator(value);
       setDisplay(value);
     }
   };
-
+  
   const clearClickHandler = () => {
     setDisplay('0');
     setNum1('');
@@ -64,13 +72,26 @@ export default function App() {
         break;
       case '÷':
         if (number2 !== 0) {
-          result = number1 / number2;
+        result = number1 / number2;
         } else {
-          result = 'Error';
+        result = 'Error';
+        }
+        break;
+      case '^':
+        result = Math.pow(number1, number2);
+        break;
+      case '%':
+        if (number2 !== 0) {
+        result = number1 % number2;
+        } else {
+        result = 'Error';
         }
         break;
       default:
+        result = 'Invalid Operator';
         break;
+    
+    
     }
 
     setDisplay(result);
@@ -90,18 +111,23 @@ export default function App() {
         <MyButton label={8} onClick={() => numberClickHandler('8')} />
         <MyButton label={9} onClick={() => numberClickHandler('9')} />
         <MyButton label="+" onClick={() => operatorClickHandler('+')} />
+        <MyButton label="^" onClick={() => operatorClickHandler('^')} />
         <MyButton label={4} onClick={() => numberClickHandler('4')} />
         <MyButton label={5} onClick={() => numberClickHandler('5')} />
         <MyButton label={6} onClick={() => numberClickHandler('6')} />
         <MyButton label="-" onClick={() => operatorClickHandler('-')} />
+        <MyButton label="%" onClick={() => operatorClickHandler('%')} />
         <MyButton label={1} onClick={() => numberClickHandler('1')} />
         <MyButton label={2} onClick={() => numberClickHandler('2')} />
         <MyButton label={3} onClick={() => numberClickHandler('3')} />
         <MyButton label="*" onClick={() => operatorClickHandler('*')} />
+        <MyButton label="±" onClick={() => operatorClickHandler('±')} />
         <MyButton label="C" onClick={clearClickHandler} />
         <MyButton label={0} onClick={() => numberClickHandler('0')} />
         <MyButton label="=" onClick={calculateResult} />
         <MyButton label="÷" onClick={() => operatorClickHandler('÷')} />
+        <MyButton label="." onClick={() => operatorClickHandler('.')} />
+
       </div>
       <div className="SurnameButton">
         <MyButton label="ANICETA" onClick={nameClickHandler} />
